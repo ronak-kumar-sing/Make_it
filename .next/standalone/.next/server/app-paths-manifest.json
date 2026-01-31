@@ -1,0 +1,15 @@
+{
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/register/route": "app/api/auth/register/route.js",
+  "/api/focus-sessions/route": "app/api/focus-sessions/route.js",
+  "/api/auth/logout/route": "app/api/auth/logout/route.js",
+  "/api/ai/chat/route": "app/api/ai/chat/route.js",
+  "/api/admin/performance/route": "app/api/admin/performance/route.js",
+  "/api/health/route": "app/api/health/route.js",
+  "/api/tasks/route": "app/api/tasks/route.js",
+  "/page": "app/page.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/(auth)/signup/page": "app/(auth)/signup/page.js"
+}

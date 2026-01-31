@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Flame, Loader2 } from "lucide-react"
+import { Flame, Loader2, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -13,9 +13,16 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { login } from "@/app/actions/auth"
 import { motion } from "framer-motion"
 
+// Demo credentials - these match the seeded user
+const DEMO_CREDENTIALS = {
+  email: 'demo@studystreak.app',
+  password: 'Demo@123456',
+}
+
 export default function LoginPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const [isDemoLoading, setIsDemoLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -30,6 +37,25 @@ export default function LoginPage() {
 
     if (result.error) {
       setError(result.error)
+    } else if (result.success) {
+      router.push("/dashboard")
+    }
+  }
+
+  async function handleDemoLogin() {
+    setIsDemoLoading(true)
+    setError(null)
+
+    const formData = new FormData()
+    formData.append('email', DEMO_CREDENTIALS.email)
+    formData.append('password', DEMO_CREDENTIALS.password)
+    
+    const result = await login(formData)
+
+    setIsDemoLoading(false)
+
+    if (result.error) {
+      setError('Demo login failed. Please make sure the database is seeded. Run: npm run db:seed')
     } else if (result.success) {
       router.push("/dashboard")
     }
@@ -104,7 +130,7 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isLoading || isDemoLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -114,6 +140,32 @@ export default function LoginPage() {
                   "Log in"
                 )}
               </Button>
+            </div>
+
+            {/* Demo Login Button */}
+            <div>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full border-orange-500/50 text-orange-500 hover:bg-orange-500/10 hover:text-orange-400"
+                onClick={handleDemoLogin}
+                disabled={isLoading || isDemoLoading}
+              >
+                {isDemoLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Loading demo...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Try Demo Account
+                  </>
+                )}
+              </Button>
+              <p className="mt-2 text-xs text-center text-muted-foreground">
+                No signup required - explore all features instantly
+              </p>
             </div>
           </form>
 

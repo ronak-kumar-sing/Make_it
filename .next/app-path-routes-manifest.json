@@ -1,0 +1,15 @@
+{
+  "/api/auth/login/route": "/api/auth/login",
+  "/_not-found/page": "/_not-found",
+  "/api/auth/register/route": "/api/auth/register",
+  "/api/focus-sessions/route": "/api/focus-sessions",
+  "/api/auth/logout/route": "/api/auth/logout",
+  "/api/ai/chat/route": "/api/ai/chat",
+  "/api/admin/performance/route": "/api/admin/performance",
+  "/api/health/route": "/api/health",
+  "/api/tasks/route": "/api/tasks",
+  "/page": "/",
+  "/(auth)/login/page": "/login",
+  "/dashboard/page": "/dashboard",
+  "/(auth)/signup/page": "/signup"
+}
